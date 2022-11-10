@@ -10,6 +10,7 @@ const btn3 = document.getElementById("btn3");
 const btn4 = document.getElementById("btn4");
 const btn5 = document.getElementById("btn5");
 const btn6 = document.getElementById("btn6");
+
 const audio = document.getElementById("player");
 const choose = document.getElementById("choose");
 
@@ -67,6 +68,7 @@ const light = new THREE.PointLight(0xffffff, 2);
 
 let car;
 const gltf_loader = new GLTFLoader();
+const rgbe_loader = new RGBELoader();
 
 const model = "gltf/pagani_zonda_shooting_car/scene.gltf";
 const model2 = "gltf/lamborghini_urus/scene.gltf";
@@ -80,9 +82,7 @@ const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
     document.body.appendChild(container);
     // ------------------------------------ *** ---------------------------------------
 
-
     camera.position.set(40, 20, 30);
-
     scene.background = new THREE.Color(0xcccccc);
 
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -104,7 +104,6 @@ const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
     scene.add(light);
 
     // LOAD TEXTURE
-    const rgbe_loader = new RGBELoader();
 
     rgbe_loader.setDataType(THREE.UnsignedByteType);
     rgbe_loader.load("hdr/background.hdr", function (texture) {

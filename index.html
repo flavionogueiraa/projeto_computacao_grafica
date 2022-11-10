@@ -1,215 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Computação gráfica</title>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
-    <link type="text/css" rel="stylesheet" href="main.css" />
-    <link rel="icon" href="img/favicon.png" />
-  </head>
-  <style>
-    
-  </style>
+<html lang="pt-br">
 
-  <body>
-    <div id="main">
-      
-      <h1 class="h1-heading">death race 2008</h1>
-      <div class="menu">
-        <div class="face">
-            <img class="face-img" src="img/ames.jpg" alt="">
-            <button id="btn" class="btn btn1">jensen</button>
-        </div>
-        <div class="face">
-            <img class="face-img" src="img/case.jpg" alt="">
-            <button id="btn2" class="btn btn1">case</button>
-        </div>
-        <div class="face">
-            <img class="face-img" src="img/pachenko.jpg" alt="">
-            <button id="btn3" class="btn btn1">pachenko</button>
-        </div>
-        <div class="face">
-            <img class="face-img" src="img/naty.jpg" alt="">
-            <button id="btn4" class="btn btn1">Naty</button>
-        </div>
-        <div class="face">
-            <img class="face-img" src="img/eric.jpg" alt="">
-            <button id="btn5" class="btn btn1">Eric</button>
-        </div>
-        <div class="face">
-            <img class="face-img" src="img/flavio.png" alt="">
-            <button id="btn6" class="btn btn1">Flávio</button>
-        </div>
-      </div>       
-      
+<head>
+  <title>Computação gráfica</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+  <link type="text/css" rel="stylesheet" href="assets/css/main.css" />
+  <link rel="icon" href="img/favicon.png" />
+</head>
+<style>
 
-      <audio id="player" autoplay loop controls hidden>
-        <!-- <source src="sounds/death-race.mp3" type="audio/mpeg" /> -->
-      </audio>
-      <audio id="choose">
-        <source src="sounds/choose.mp3" type="audio/mpeg" />
-      </audio>
+</style>
+
+<body>
+  <div id="main">
+    <h1 class="h1-heading">death race 2008</h1>
+    <div class="menu">
+      <div class="face">
+        <img class="face-img" src="img/ames.jpg" alt="">
+        <button id="btn" class="btn btn1">jensen</button>
+      </div>
+
+      <div class="face">
+        <img class="face-img" src="img/case.jpg" alt="">
+        <button id="btn2" class="btn btn1">case</button>
+      </div>
+
+      <div class="face">
+        <img class="face-img" src="img/pachenko.jpg" alt="">
+        <button id="btn3" class="btn btn1">pachenko</button>
+      </div>
+
+      <div class="face">
+        <img class="face-img" src="img/naty.jpg" alt="">
+        <button id="btn4" class="btn btn1">Naty</button>
+      </div>
+
+      <div class="face">
+        <img class="face-img" src="img/eric.jpg" alt="">
+        <button id="btn5" class="btn btn1">Eric</button>
+      </div>
+
+      <div class="face">
+        <img class="face-img" src="img/flavio.png" alt="">
+        <button id="btn6" class="btn btn1">Flávio</button>
+      </div>
     </div>
 
-    <script type="module">
-      var btn = document.getElementById("btn");
-      var btn2 = document.getElementById("btn2");
-      var btn3 = document.getElementById("btn3");
-      var audio = document.getElementById("player");
-      var choose = document.getElementById("choose");
 
-      btn.addEventListener("click", function () {
-        audio.play();
-        choose.play();
-        loadModel(model,9,9,9);
-      });
+    <audio id="player" autoplay loop controls hidden>
+      <!-- <source src="sounds/death-race.mp3" type="audio/mpeg" /> -->
+    </audio>
+    <audio id="choose">
+      <source src="sounds/choose.mp3" type="audio/mpeg" />
+    </audio>
+  </div>
 
-      btn2.addEventListener("click", function () {
-        audio.play();
-        choose.play();	
-		    loadModel(model2);
-      });
+  <script type="module" src="assets/js/main.js"></script>
+</body>
 
-      btn3.addEventListener("click", function () {
-        audio.play();
-        choose.play();
-        loadModel(model3);
-      });
-
-      btn4.addEventListener("click", function () {
-        audio.play();
-        choose.play();
-        loadModel(model4, 9, 9, 9);
-      });
-
-      btn5.addEventListener("click", function () {
-        audio.play();
-        choose.play();
-        loadModel(model5, 2, 2, 2);
-      });
-
-      btn6.addEventListener("click", function () {
-        audio.play();
-        choose.play();
-        loadModel(model6, 2, 2, 2);
-      });
-
-      import * as THREE from "./build/three.module.js";
-      import { OrbitControls } from "./build/OrbitControls.js";
-      import { GLTFLoader } from "./build/GLTFLoader.js";
-      import { RGBELoader } from "./build/RGBELoader.js";
-
-      var camera, scene, renderer;
-      var car;
-      var gltf_loader = new GLTFLoader();
-      
-      var model = "gltf/pagani_zonda_shooting_car/scene.gltf";
-      var model2 = "gltf/lamborghini_urus/scene.gltf";
-      var model3 = "gltf/peugeot_3008/scene.gltf";
-      var model4 = "gltf/bmw_m3_need_for_speed_most_wanted/scene.gltf";
-      var model5 = "gltf/srt_perfomance_audi_a7_quattro/scene.gltf";
-      var model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
-
-      init();
-      loop();
-
-      function init() {
-        const container = document.createElement("div");
-        document.body.appendChild(container);
-        // ------------------------------------ *** ---------------------------------------
-
-        camera = new THREE.PerspectiveCamera(
-          75,
-          window.innerWidth / window.innerHeight,
-          0.1,
-          1000
-        );
-        camera.position.set(40, 20, 30);
-
-        scene = new THREE.Scene();
-        scene.background = new THREE.Color(0xcccccc);
-
-        renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.outputEncoding = THREE.sRGBEncoding;
-
-        container.appendChild(renderer.domElement);
-
-        // LOAD MODEL
-        gltf_loader.load(model, function (gltf) {
-          car = gltf.scene;
-          gltf.scene.scale.set(0.1, 0.1, 0.1);
-          // scene.add(gltf.scene);
-
-          render();
-        });
-
-        var light = new THREE.PointLight(0xffffff, 2);
-        light.position.set(100, 100, 100);
-        scene.add(light);
-
-        // LOAD TEXTURE
-        const rgbe_loader = new RGBELoader();
-
-        rgbe_loader.setDataType(THREE.UnsignedByteType);
-        rgbe_loader.load("hdr/background.hdr", function (texture) {
-          const pmremGenerator = new THREE.PMREMGenerator(renderer);
-          const envMap = pmremGenerator.fromEquirectangular(texture).texture;
-
-          scene.background = envMap;
-          scene.environment = envMap;
-
-          render();
-        });
-
-        // VIEW CONTROLS
-        const controls = new OrbitControls(camera, renderer.domElement);
-        controls.addEventListener("change", render);
-        controls.minDistance = 20;
-        controls.maxDistance = 70;
-        controls.target.set(0, 0.5, 0);
-        controls.mouseButtons = {
-          LEFT: THREE.MOUSE.ROTATE,
-          MIDDLE: THREE.MOUSE.DOLLY,
-          RIGHT: THREE.MOUSE.ROTATE,
-        };
-        // controls.minPolarAngle = 0;
-        // controls.maxPolarAngle = Math.PI / 2;
-        controls.update();
-
-        window.addEventListener("resize", onWindowResize, false);
-      }
-
-      function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
-        gltf_loader.load(modelPath, function (gltf) {
-          scene.remove(car);
-          car = gltf.scene;
-          gltf.scene.scale.set(x, y, z);
-          scene.add(car);
-          render();
-        });
-      }
-
-      function onWindowResize() {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        render();
-      }
-
-      function render() {
-        renderer.render(scene, camera);
-      }
-
-      function loop() {
-        requestAnimationFrame(loop);
-        car.rotation.y += -0.003;
-        renderer.render(scene, camera);
-      }
-    </script>
-  </body>
 </html>

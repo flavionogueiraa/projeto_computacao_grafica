@@ -1,8 +1,17 @@
-var btn = document.getElementById("btn");
-var btn2 = document.getElementById("btn2");
-var btn3 = document.getElementById("btn3");
-var audio = document.getElementById("player");
-var choose = document.getElementById("choose");
+import * as THREE from "/build/three.module.js";
+import { OrbitControls } from "/build/OrbitControls.js";
+import { GLTFLoader } from "/build/GLTFLoader.js";
+import { RGBELoader } from "/build/RGBELoader.js";
+
+
+const btn = document.getElementById("btn");
+const btn2 = document.getElementById("btn2");
+const btn3 = document.getElementById("btn3");
+const btn4 = document.getElementById("btn4");
+const btn5 = document.getElementById("btn5");
+const btn6 = document.getElementById("btn6");
+const audio = document.getElementById("player");
+const choose = document.getElementById("choose");
 
 btn.addEventListener("click", function () {
     audio.play();
@@ -45,41 +54,37 @@ btn6.addEventListener("click", function () {
     loadModel(model6, 2, 2, 2);
 });
 
-import * as THREE from "/build/three.module.js";
-import { OrbitControls } from "/build/OrbitControls.js";
-import { GLTFLoader } from "/build/GLTFLoader.js";
-import { RGBELoader } from "/build/RGBELoader.js";
 
-var camera, scene, renderer;
-var car;
-var gltf_loader = new GLTFLoader();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+const camera = new THREE.PerspectiveCamera(
+    75,
+    window.innerWidth / window.innerHeight,
+    0.1,
+    1000
+);
+const scene = new THREE.Scene();
+const light = new THREE.PointLight(0xffffff, 2);
 
-var model = "gltf/pagani_zonda_shooting_car/scene.gltf";
-var model2 = "gltf/lamborghini_urus/scene.gltf";
-var model3 = "gltf/peugeot_3008/scene.gltf";
-var model4 = "gltf/bmw_m3_need_for_speed_most_wanted/scene.gltf";
-var model5 = "gltf/srt_perfomance_audi_a7_quattro/scene.gltf";
-var model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
+let car;
+const gltf_loader = new GLTFLoader();
 
-init();
+const model = "gltf/pagani_zonda_shooting_car/scene.gltf";
+const model2 = "gltf/lamborghini_urus/scene.gltf";
+const model3 = "gltf/peugeot_3008/scene.gltf";
+const model4 = "gltf/bmw_m3_need_for_speed_most_wanted/scene.gltf";
+const model5 = "gltf/srt_perfomance_audi_a7_quattro/scene.gltf";
+const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
 
-function init() {
+(function init() {
     const container = document.createElement("div");
     document.body.appendChild(container);
     // ------------------------------------ *** ---------------------------------------
 
-    camera = new THREE.PerspectiveCamera(
-        75,
-        window.innerWidth / window.innerHeight,
-        0.1,
-        1000
-    );
+
     camera.position.set(40, 20, 30);
 
-    scene = new THREE.Scene();
     scene.background = new THREE.Color(0xcccccc);
 
-    renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
@@ -95,7 +100,6 @@ function init() {
         render();
     });
 
-    var light = new THREE.PointLight(0xffffff, 2);
     light.position.set(100, 100, 100);
     scene.add(light);
 
@@ -129,7 +133,7 @@ function init() {
     controls.update();
 
     window.addEventListener("resize", onWindowResize, false);
-}
+})()
 
 function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
     gltf_loader.load(modelPath, function (gltf) {

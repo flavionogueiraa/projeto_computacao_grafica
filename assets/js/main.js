@@ -185,6 +185,7 @@ function loader(loader) {
     */
     function show(options) {
         loaderEL.dataset.active = "true"
+        loaderEL.classList.remove("hidden")
         let atual = 0;
 
         const obj = {
@@ -216,6 +217,7 @@ function loader(loader) {
 
     function hide() {
         loaderEL.dataset.active = "false"
+        loaderEL.classList.add("hidden")
         clearInterval(interval)
         pEl.innerText = ""
 

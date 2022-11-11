@@ -71,7 +71,7 @@ const camera = new THREE.PerspectiveCamera(
     1000
 );
 const scene = new THREE.Scene();
-const light = new THREE.PointLight(0xffffff, 2);
+const light = new THREE.PointLight(0xf2e9c8, 2);
 
 let car;
 const gltf_loader = new GLTFLoader();
@@ -165,6 +165,6 @@ function render() {
 
 function animate() {
     requestAnimationFrame(animate);
-    car.rotation.y += -0.003;
+    car.rotation.y += -0.002;
     renderer.render(scene, camera);
 }

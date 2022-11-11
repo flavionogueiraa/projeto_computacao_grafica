@@ -92,7 +92,7 @@ const model7 = "gltf/future_car/scene.gltf";
     document.body.appendChild(container);
     // ------------------------------------ *** ---------------------------------------
 
-    camera.position.set(40, 20, 30);
+    camera.position.set(40, 25, 30);
     scene.background = new THREE.Color(0xcccccc);
 
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -132,6 +132,8 @@ const model7 = "gltf/future_car/scene.gltf";
     controls.minDistance = 20;
     controls.maxDistance = 70;
     controls.target.set(0, 0.5, 0);
+    controls.minPolarAngle = Math.PI / 4
+    controls.maxPolarAngle = Math.PI / 2
     controls.mouseButtons = {
         LEFT: THREE.MOUSE.ROTATE,
         MIDDLE: THREE.MOUSE.DOLLY,

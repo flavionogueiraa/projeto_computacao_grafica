@@ -10,6 +10,7 @@ const btn3 = document.getElementById("btn3");
 const btn4 = document.getElementById("btn4");
 const btn5 = document.getElementById("btn5");
 const btn6 = document.getElementById("btn6");
+const btn7 = document.getElementById("btn7");
 
 const audio = document.getElementById("player");
 const choose = document.getElementById("choose");
@@ -55,6 +56,12 @@ btn6.addEventListener("click", function () {
     loadModel(model6, 2, 2, 2);
 });
 
+btn7.addEventListener("click", function () {
+    audio.play();
+    choose.play();
+    loadModel(model7, 5, 5, 5);
+});
+
 
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 const camera = new THREE.PerspectiveCamera(
@@ -76,6 +83,7 @@ const model3 = "gltf/peugeot_3008/scene.gltf";
 const model4 = "gltf/bmw_m3_need_for_speed_most_wanted/scene.gltf";
 const model5 = "gltf/srt_perfomance_audi_a7_quattro/scene.gltf";
 const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
+const model7 = "gltf/future_car/scene.gltf";
 
 (function init() {
     const container = document.createElement("div");
@@ -106,7 +114,7 @@ const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
     // LOAD TEXTURE
 
     rgbe_loader.setDataType(THREE.UnsignedByteType);
-    rgbe_loader.load("hdr/background.hdr", function (texture) {
+    rgbe_loader.load("hdr/garage_4k.hdr", function (texture) {
         const pmremGenerator = new THREE.PMREMGenerator(renderer);
         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 

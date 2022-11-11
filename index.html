@@ -7,12 +7,17 @@
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
   <link type="text/css" rel="stylesheet" href="assets/css/main.css" />
   <link rel="icon" href="img/favicon.png" />
-
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
   <style></style>
 </head>
 
 <body>
-  <div id="main">
+	<div class="loader--container" data-active="false">
+		<div class="loader--center loader"></div>
+		<p></p>
+	</div>
+
+  <div id="main" class="hidden">
     <img class="logo-img" src="img/need-for-speed-underground-2-logo.png" alt="">
     <div class="menu">
       <div class="face">

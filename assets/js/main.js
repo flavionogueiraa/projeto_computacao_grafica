@@ -145,12 +145,13 @@ const model7 = "gltf/future_car/scene.gltf";
 })()
 
 function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
+    loader().show()
     gltf_loader.load(modelPath, function (gltf) {
         scene.remove(car);
         car = gltf.scene;
         gltf.scene.scale.set(x, y, z);
         scene.add(car);
-        render();
+        loader().hide()
     });
 }
 
@@ -170,7 +171,10 @@ function render() {
 
 function animate() {
     requestAnimationFrame(animate);
-    car.rotation.y += -0.002;
+    let v = 0.2;
+    car.rotation.y += -0.01;
+    car.position.x += v * Math.cos(-car.rotation.y);
+    car.position.z += v * Math.sin(-car.rotation.y);
     renderer.render(scene, camera);
 }
 
@@ -228,12 +232,4 @@ function loader(loader) {
     }
 }
 
-loader().show()
-setTimeout(function () {
-    showContent()
-}, 1000)
-
-function showContent() {
-    loader().hide()
-    document.querySelector("#main").classList.remove("hidden")
-}
+document.querySelector("#main").classList.remove("hidden")

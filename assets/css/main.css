@@ -78,3 +78,6 @@ button {
 	text-transform: uppercase;
 }
 
+.hidden {
+    display: none;
+}

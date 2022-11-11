@@ -85,6 +85,8 @@ const model5 = "gltf/srt_perfomance_audi_a7_quattro/scene.gltf";
 const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
 const model7 = "gltf/future_car/scene.gltf";
 
+
+
 (function init() {
     const container = document.createElement("div");
     document.body.appendChild(container);
@@ -152,6 +154,9 @@ function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
     });
 }
 
+// const garage = "gltf/garage/scene.gltf";
+// loadModel(garage, 9, 9, 9)
+
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
@@ -167,4 +172,68 @@ function animate() {
     requestAnimationFrame(animate);
     car.rotation.y += -0.002;
     renderer.render(scene, camera);
+}
+
+function loader(loader) {
+    const textDefault = ["Aguarde, estamos enviando seus dados", "Mais um pouco...", "Quase lá..."]
+    const loaderEL = document.querySelector(".loader--container") || loader
+    const pEl = loaderEL.querySelector("p")
+    let interval
+
+    /**
+    * @param {array} opcional | recebe um array de objetos para ser mostrado 
+    */
+    function show(options) {
+        loaderEL.dataset.active = "true"
+        let atual = 0;
+
+        const obj = {
+            textos: textDefault,
+            time: 8000,
+            ...options
+        }
+        $(pEl).text(obj.textos[atual]);
+
+        interval = setInterval(function () {
+            $(pEl).fadeOut(function () {
+
+
+                if (atual > obj.textos.length) {
+                    atual = 0;
+                }
+
+
+                $(pEl).text(obj.textos[atual]).fadeIn();
+
+                atual = atual + 1
+
+            });
+        }, obj.time);
+
+        return this
+    }
+
+
+    function hide() {
+        loaderEL.dataset.active = "false"
+        clearInterval(interval)
+        pEl.innerText = ""
+
+        return this
+    }
+
+    return {
+        show,
+        hide
+    }
+}
+
+loader().show()
+setTimeout(function () {
+    showContent()
+}, 1000)
+
+function showContent() {
+    loader().hide()
+    document.querySelector("#main").classList.remove("hidden")
 }

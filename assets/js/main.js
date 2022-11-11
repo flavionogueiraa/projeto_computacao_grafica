@@ -73,7 +73,7 @@ const camera = new THREE.PerspectiveCamera(
 const scene = new THREE.Scene();
 const light = new THREE.PointLight(0xf2e9c8, 2);
 
-let car;
+let car, base;
 const gltf_loader = new GLTFLoader();
 const rgbe_loader = new RGBELoader();
 
@@ -92,7 +92,7 @@ const model7 = "gltf/future_car/scene.gltf";
     document.body.appendChild(container);
     // ------------------------------------ *** ---------------------------------------
 
-    camera.position.set(40, 25, 30);
+    camera.position.set(40, 10, 30);
     scene.background = new THREE.Color(0xcccccc);
 
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -103,7 +103,7 @@ const model7 = "gltf/future_car/scene.gltf";
 
     // LOAD MODEL
     gltf_loader.load(model, function (gltf) {
-        car = gltf.scene;
+        car = base = gltf.scene;
         gltf.scene.scale.set(0.1, 0.1, 0.1);
         // scene.add(gltf.scene);
 
@@ -132,8 +132,11 @@ const model7 = "gltf/future_car/scene.gltf";
     controls.minDistance = 20;
     controls.maxDistance = 70;
     controls.target.set(0, 0.5, 0);
+
+    // Camera ajust
     controls.minPolarAngle = Math.PI / 4
     controls.maxPolarAngle = Math.PI / 2
+
     controls.mouseButtons = {
         LEFT: THREE.MOUSE.ROTATE,
         MIDDLE: THREE.MOUSE.DOLLY,
@@ -150,8 +153,17 @@ function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
     gltf_loader.load(modelPath, function (gltf) {
         scene.remove(car);
         car = gltf.scene;
+        car.position.y = -15
         gltf.scene.scale.set(x, y, z);
         scene.add(car);
+        render();
+    });
+    gltf_loader.load("/gltf/round_platform/scene.gltf", function (gltf) {
+        scene.remove(base);
+        base = gltf.scene;
+        base.position.y = -17
+        gltf.scene.scale.set(x, y, z);
+        scene.add(base);
         render();
     });
 }
@@ -173,6 +185,7 @@ function render() {
 function animate() {
     requestAnimationFrame(animate);
     car.rotation.y += -0.002;
+    base.rotation.y += -0.002;
     renderer.render(scene, camera);
 }
 

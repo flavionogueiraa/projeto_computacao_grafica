@@ -114,7 +114,7 @@ const model7 = "gltf/future_car/scene.gltf";
     // LOAD TEXTURE
 
     rgbe_loader.setDataType(THREE.UnsignedByteType);
-    rgbe_loader.load("hdr/garage_4k.hdr", function (texture) {
+    rgbe_loader.load("hdr/background.hdr", function (texture) {
         const pmremGenerator = new THREE.PMREMGenerator(renderer);
         const envMap = pmremGenerator.fromEquirectangular(texture).texture;
 

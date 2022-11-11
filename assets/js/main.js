@@ -168,9 +168,14 @@ function render() {
     renderer.render(scene, camera);
 }
 
+let speed = 0.0;
+
 function animate() {
+    speed += deltaSpeed;
     requestAnimationFrame(animate);
-    car.rotation.y += -0.002;
+    car.rotation.y += deltaAngle * speed;
+    car.position.z += speed * Math.sin(-car.rotation.y);
+    car.position.x += speed * Math.cos(-car.rotation.y);
     renderer.render(scene, camera);
 }
 
@@ -237,3 +242,24 @@ function showContent() {
     loader().hide()
     document.querySelector("#main").classList.remove("hidden")
 }
+
+let ANGLE = 0;
+let deltaAngle = 0;
+let deltaSpeed = 0;
+document.addEventListener('keydown', (event) => {
+    console.log(event);
+    if(event.key == 'ArrowLeft') {
+        deltaAngle = 0.1;
+    } else if(event.key == 'ArrowRight') {
+        deltaAngle = -0.1;
+    } else if(event.key == 'ArrowUp') {
+        deltaSpeed += 0.1;
+    } else if(event.key == 'ArrowDown') {
+        deltaSpeed -= 0.1;
+    }
+})
+
+document.addEventListener('keyup', () => {
+    deltaAngle = 0;
+    deltaSpeed = 0;
+})

@@ -4,9 +4,6 @@ import { GLTFLoader } from "/build/GLTFLoader.js";
 import { RGBELoader } from "/build/RGBELoader.js";
 
 
-const btn = document.getElementById("btn");
-const btn2 = document.getElementById("btn2");
-const btn3 = document.getElementById("btn3");
 const btn4 = document.getElementById("btn4");
 const btn5 = document.getElementById("btn5");
 const btn6 = document.getElementById("btn6");
@@ -14,27 +11,6 @@ const btn7 = document.getElementById("btn7");
 
 const audio = document.getElementById("player");
 const choose = document.getElementById("choose");
-
-btn.addEventListener("click", function () {
-    audio.play();
-    choose.play();
-    loadModel(model, 9, 9, 9);
-    animate()
-});
-
-btn2.addEventListener("click", function () {
-    audio.play();
-    choose.play();
-    loadModel(model2);
-    animate()
-});
-
-btn3.addEventListener("click", function () {
-    audio.play();
-    choose.play();
-    loadModel(model3);
-    animate()
-});
 
 btn4.addEventListener("click", function () {
     audio.play();
@@ -147,6 +123,21 @@ const model7 = "gltf/future_car/scene.gltf";
     controls.update();
 
     window.addEventListener("resize", onWindowResize, false);
+
+    const listener = new THREE.AudioListener();
+    camera.add( listener );
+
+    // create a global audio source
+    const sound = new THREE.Audio( listener );
+
+    // load a sound and set it as the Audio object's buffer
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load( 'sounds/death-race.mp3', function( buffer ) {
+        sound.setBuffer( buffer );
+        sound.setLoop( true );
+        sound.setVolume( 0.5 );
+        sound.play();
+    });
 })()
 
 function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {

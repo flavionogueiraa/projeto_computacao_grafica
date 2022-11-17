@@ -1,6 +1,10 @@
 # Garagem de carros!
 
-Acesse o nosso projeto [aqui](https://flaviotech.github.io/projeto_computacao_grafica/)!
+Nosso projeto se trata de uma garagem de carros, onde buscamos explorar os conceitos
+da biblioteca Three JS, juntamente com os conhecimentos obtidos disciplina de computação gráfica,
+na Universidade Federal Rural do Semi Árido ([UFERSA](https://paudosferros.ufersa.edu.br/)).
+
+Para acessar o link do nosso projeto e vê-lo rodando, clique [aqui](https://flaviotech.github.io/projeto_computacao_grafica/)!
 
 ## Exploração da biblioteca Three JS
 Nosso projeto conta com diversos pacotes interessantes, segue abaixo a listagem dos mesmos:

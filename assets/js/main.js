@@ -142,15 +142,15 @@ function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
         scene.add(car);
         render();
     });
-    gltf_loader.load("/gltf/round_platform/scene.gltf", function (gltf) {
-        scene.remove(base);
-        base = gltf.scene;
-        base.position.y = -17
-        gltf.scene.scale.set(9, 9, 9);
-        scene.add(base);
-        render();
-    });
 }
+
+gltf_loader.load("/gltf/round_platform/scene.gltf", function (gltf) {
+    base = gltf.scene;
+    base.position.y = -17
+    gltf.scene.scale.set(9, 9, 9);
+    scene.add(base);
+    render();
+});
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -171,7 +171,7 @@ function animate() {
 }
 
 function loader(loader) {
-    const textDefault = ["Aguarde, estamos enviando seus dados", "Mais um pouco...", "Quase lá..."]
+    const textDefault = ["Warming up the engines..."]
     const loaderEL = document.querySelector(".loader--container") || loader
     const pEl = loaderEL.querySelector("p")
     let interval
@@ -185,7 +185,7 @@ function loader(loader) {
         let atual = 0;
 
         const obj = {
-            textos: textDefault,
+            textos: [],
             time: 8000,
             ...options
         }
@@ -229,7 +229,7 @@ function loader(loader) {
 loader().show()
 setTimeout(function () {
     showContent()
-}, 1000)
+}, 4000)
 
 function showContent() {
     loader().hide()

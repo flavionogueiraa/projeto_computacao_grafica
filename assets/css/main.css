@@ -1,7 +1,7 @@
 body {
     overflow: hidden;
 	margin: 0;
-	background-color: #000;
+	background-color: #00050a;
 	color: #fff;
 	font-family: Monospace;
 	font-size: 13px;
@@ -81,4 +81,14 @@ button {
 
 .hidden {
     display: none;
+}
+
+.loader--container {
+    height: 100vh;
+    text-align: center;
+}
+
+.loader--container img {
+    height: 130vh;
+    margin-top: -115px;
 }

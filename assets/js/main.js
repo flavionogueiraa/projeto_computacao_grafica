@@ -26,11 +26,13 @@ btn5.addEventListener("click", function () {
 btn6.addEventListener("click", function () {
     choose.play();
     loadModel(model6, 2, 2, 2);
+    animate()
 });
 
 btn7.addEventListener("click", function () {
     choose.play();
     loadModel(model7, 7, 7, 7);
+    animate()
 });
 
 
@@ -48,7 +50,6 @@ let car, base;
 const gltf_loader = new GLTFLoader();
 const rgbe_loader = new RGBELoader();
 
-const model = "gltf/pagani_zonda_shooting_car/scene.gltf";
 const model4 = "gltf/bmw_m3_need_for_speed_most_wanted/scene.gltf";
 const model5 = "gltf/srt_perfomance_audi_a7_quattro/scene.gltf";
 const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
@@ -69,15 +70,6 @@ const model7 = "gltf/mercedes-benz_amg_cls/scene.gltf";
     renderer.outputEncoding = THREE.sRGBEncoding;
 
     container.appendChild(renderer.domElement);
-
-    // LOAD MODEL
-    gltf_loader.load(model, function (gltf) {
-        car = base = gltf.scene;
-        gltf.scene.scale.set(0.1, 0.1, 0.1);
-        // scene.add(gltf.scene);
-
-        render();
-    });
 
     light.position.set(100, 100, 100);
     scene.add(light);

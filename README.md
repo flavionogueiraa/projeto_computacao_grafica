@@ -70,7 +70,7 @@ rgbe_loader.load("hdr/background.hdr", function (texture) {
 });
 ```
 
-### [PointLight](https://threejs.org/docs/#api/en/loaders/DataTextureLoader)
+### [PointLight](https://threejs.org/docs/#api/en/helpers/PointLightHelper)
 PointLight é a classe que usamos para gerar o ponto de luz da nossa cena.
 Exemplo:
 ```js

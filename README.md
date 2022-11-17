@@ -52,7 +52,7 @@ gltf_loader.load(modelPath, function (gltf) {
 
 ### [RGBELoader](https://threejs.org/docs/#api/en/loaders/DataTextureLoader)
 RGBELoader é uma classe base abstrata para carregar formatos genéricos de texturas binárias,
-usamos ela para renderizar o fundo do nosso cenário.
+usamos ela e um arquivo .hdr para renderizar o fundo do nosso cenário.
 Exemplo:
 ```js
 // Realize a importação
@@ -84,4 +84,26 @@ const light = new THREE.PointLight(0xf2e9c8, 2);
 // Informe a posição da luz e a adicione na sua cena
 light.position.set(100, 100, 100);
 scene.add(light);
+```
+
+
+### [Audio](https://threejs.org/docs/#api/en/audio/Audio)
+Audio é a classe que usamos para gerar o áudio da música de fundo.
+Exemplo:
+```js
+const listener = new THREE.AudioListener();
+camera.add( listener );
+
+// Em algum lugar do código, instancie um objeto do tipo Audio
+const sound = new THREE.Audio( listener );
+
+// Carregue um som que esteja no seu projeto, define o volume,
+// dê um play e curta o som!
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load( 'sounds/death-race.mp3', function( buffer ) {
+    sound.setBuffer( buffer );
+    sound.setLoop( true );
+    sound.setVolume( 0.5 );
+    sound.play();
+});
 ```

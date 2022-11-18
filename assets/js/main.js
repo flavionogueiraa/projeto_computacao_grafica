@@ -121,7 +121,7 @@ const model7 = "gltf/mercedes-benz_amg_cls/scene.gltf";
         sound.setBuffer(buffer);
         sound.setLoop(true);
         sound.setVolume(0.5);
-        // sound.play();
+        sound.play();
     });
 })()
 
@@ -157,8 +157,8 @@ function render() {
 
 function animate() {
     requestAnimationFrame(animate);
-    car.rotation.y += -0.002;
-    base.rotation.y += -0.002;
+    car && (car.rotation.y += -0.002);
+    base && (base.rotation.y += -0.002);
     renderer.render(scene, camera);
 }
 
@@ -226,4 +226,6 @@ setTimeout(function () {
 function showContent() {
     loader().hide()
     document.querySelector("#main").classList.remove("hidden")
+
+    btn4.click()
 }

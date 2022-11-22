@@ -9,33 +9,30 @@ const btn5 = document.getElementById("btn5");
 const btn6 = document.getElementById("btn6");
 const btn7 = document.getElementById("btn7");
 
-const audio = document.getElementById("player");
 const choose = document.getElementById("choose");
 
 btn4.addEventListener("click", function () {
-    audio.play();
     choose.play();
     loadModel(model4, 9, 9, 9);
     animate()
 });
 
 btn5.addEventListener("click", function () {
-    audio.play();
     choose.play();
     loadModel(model5, 2, 2, 2);
     animate()
 });
 
 btn6.addEventListener("click", function () {
-    audio.play();
     choose.play();
     loadModel(model6, 2, 2, 2);
+    animate()
 });
 
 btn7.addEventListener("click", function () {
-    audio.play();
     choose.play();
-    loadModel(model7, 5, 5, 5);
+    loadModel(model7, 7, 7, 7);
+    animate()
 });
 
 
@@ -53,17 +50,14 @@ let car, base;
 const gltf_loader = new GLTFLoader();
 const rgbe_loader = new RGBELoader();
 
-const model = "gltf/pagani_zonda_shooting_car/scene.gltf";
-const model2 = "gltf/lamborghini_urus/scene.gltf";
-const model3 = "gltf/peugeot_3008/scene.gltf";
 const model4 = "gltf/bmw_m3_need_for_speed_most_wanted/scene.gltf";
 const model5 = "gltf/srt_perfomance_audi_a7_quattro/scene.gltf";
 const model6 = "gltf/lamborghini_gallardo_superleggera/scene.gltf";
-const model7 = "gltf/future_car/scene.gltf";
+const model7 = "gltf/mercedes-benz_amg_cls/scene.gltf";
 
 
 
-(function init() {
+function init() {
     const container = document.createElement("div");
     document.body.appendChild(container);
     // ------------------------------------ *** ---------------------------------------
@@ -76,15 +70,6 @@ const model7 = "gltf/future_car/scene.gltf";
     renderer.outputEncoding = THREE.sRGBEncoding;
 
     container.appendChild(renderer.domElement);
-
-    // LOAD MODEL
-    gltf_loader.load(model, function (gltf) {
-        car = base = gltf.scene;
-        gltf.scene.scale.set(0.1, 0.1, 0.1);
-        // scene.add(gltf.scene);
-
-        render();
-    });
 
     light.position.set(100, 100, 100);
     scene.add(light);
@@ -124,21 +109,8 @@ const model7 = "gltf/future_car/scene.gltf";
 
     window.addEventListener("resize", onWindowResize, false);
 
-    const listener = new THREE.AudioListener();
-    camera.add( listener );
 
-    // create a global audio source
-    const sound = new THREE.Audio( listener );
-
-    // load a sound and set it as the Audio object's buffer
-    const audioLoader = new THREE.AudioLoader();
-    audioLoader.load( 'sounds/death-race.mp3', function( buffer ) {
-        sound.setBuffer( buffer );
-        sound.setLoop( true );
-        sound.setVolume( 0.5 );
-        sound.play();
-    });
-})()
+}
 
 function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
     gltf_loader.load(modelPath, function (gltf) {
@@ -149,18 +121,15 @@ function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
         scene.add(car);
         render();
     });
-    gltf_loader.load("/gltf/round_platform/scene.gltf", function (gltf) {
-        scene.remove(base);
-        base = gltf.scene;
-        base.position.y = -17
-        gltf.scene.scale.set(x, y, z);
-        scene.add(base);
-        render();
-    });
 }
 
-// const garage = "gltf/garage/scene.gltf";
-// loadModel(garage, 9, 9, 9)
+gltf_loader.load("/gltf/round_platform/scene.gltf", function (gltf) {
+    base = gltf.scene;
+    base.position.y = -17
+    gltf.scene.scale.set(9, 9, 9);
+    scene.add(base);
+    render();
+});
 
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
@@ -175,13 +144,13 @@ function render() {
 
 function animate() {
     requestAnimationFrame(animate);
-    car.rotation.y += -0.002;
-    base.rotation.y += -0.002;
+    car && (car.rotation.y += -0.002);
+    base && (base.rotation.y += -0.002);
     renderer.render(scene, camera);
 }
 
 function loader(loader) {
-    const textDefault = ["Aguarde, estamos enviando seus dados", "Mais um pouco...", "Quase lá..."]
+    const textDefault = ["Warming up the engines..."]
     const loaderEL = document.querySelector(".loader--container") || loader
     const pEl = loaderEL.querySelector("p")
     let interval
@@ -195,7 +164,7 @@ function loader(loader) {
         let atual = 0;
 
         const obj = {
-            textos: textDefault,
+            textos: [],
             time: 8000,
             ...options
         }
@@ -236,12 +205,33 @@ function loader(loader) {
     }
 }
 
+function playAudio() {
+    const listener = new THREE.AudioListener();
+    camera.add(listener);
+
+    // create a global audio source
+    const sound = new THREE.Audio(listener);
+
+    // load a sound and set it as the Audio object's buffer
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load('sounds/death-race.mp3', function (buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setVolume(0.5);
+        sound.play();
+    });
+}
+
 loader().show()
 setTimeout(function () {
     showContent()
-}, 1000)
+}, 4000)
 
 function showContent() {
     loader().hide()
     document.querySelector("#main").classList.remove("hidden")
+
+    init()
+    btn4.click()
+    playAudio()
 }

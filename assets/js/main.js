@@ -57,7 +57,7 @@ const model7 = "gltf/mercedes-benz_amg_cls/scene.gltf";
 
 
 
-(function init() {
+function init() {
     const container = document.createElement("div");
     document.body.appendChild(container);
     // ------------------------------------ *** ---------------------------------------
@@ -109,21 +109,8 @@ const model7 = "gltf/mercedes-benz_amg_cls/scene.gltf";
 
     window.addEventListener("resize", onWindowResize, false);
 
-    const listener = new THREE.AudioListener();
-    camera.add(listener);
 
-    // create a global audio source
-    const sound = new THREE.Audio(listener);
-
-    // load a sound and set it as the Audio object's buffer
-    const audioLoader = new THREE.AudioLoader();
-    audioLoader.load('sounds/death-race.mp3', function (buffer) {
-        sound.setBuffer(buffer);
-        sound.setLoop(true);
-        sound.setVolume(0.5);
-        sound.play();
-    });
-})()
+}
 
 function loadModel(modelPath, x = 0.1, y = 0.1, z = 0.1) {
     gltf_loader.load(modelPath, function (gltf) {
@@ -218,6 +205,23 @@ function loader(loader) {
     }
 }
 
+function playAudio() {
+    const listener = new THREE.AudioListener();
+    camera.add(listener);
+
+    // create a global audio source
+    const sound = new THREE.Audio(listener);
+
+    // load a sound and set it as the Audio object's buffer
+    const audioLoader = new THREE.AudioLoader();
+    audioLoader.load('sounds/death-race.mp3', function (buffer) {
+        sound.setBuffer(buffer);
+        sound.setLoop(true);
+        sound.setVolume(0.5);
+        sound.play();
+    });
+}
+
 loader().show()
 setTimeout(function () {
     showContent()
@@ -227,5 +231,7 @@ function showContent() {
     loader().hide()
     document.querySelector("#main").classList.remove("hidden")
 
+    init()
     btn4.click()
+    playAudio()
 }
